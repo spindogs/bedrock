@@ -35,8 +35,8 @@
         "roots/wp-password-bcrypt": "1.0.0",
         "roots/wp-config": "1.0.0",
         "spindogs/wp-platform": "^2.0",
-		"advanced-custom-fields/advanced-custom-fields-pro": "^5.7",
-        "wpackagist-plugin/timber-library": "^1.8"
+        "wpackagist-plugin/timber-library": "^1.8",
+		"advanced-custom-fields/advanced-custom-fields-pro": "^5.7"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"
