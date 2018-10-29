@@ -1,0 +1,12 @@
+{% extends "layouts/master.twig" %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    {{ function('wp_kses_post', post.content)|raw }}
+
+    <ul>
+        {% for post in posts %}
+            <li>{{ post.title }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,68 @@
+{
+    "name": "spindogs/bedrock",
+    "type": "project",
+    "description": "WordPress boilerplate with modern development tools, easier configuration, and an improved folder structure",
+    "config": {
+        "preferred-install": "dist"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }, {
+            "type": "package",
+            "package": {
+                "name": "advanced-custom-fields/advanced-custom-fields-pro",
+                "version": "5.7.6",
+                "type": "wordpress-muplugin",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download"
+                },
+                "require": {
+                    "philippbaschke/acf-pro-installer": "^1.0",
+                    "composer/installers": "^1.0"
+                }
+            }
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "composer/installers": "^1.4",
+        "vlucas/phpdotenv": "^2.0.1",
+        "johnpbloch/wordpress": "4.9.8",
+        "oscarotero/env": "^1.1.0",
+        "roots/wp-password-bcrypt": "1.0.0",
+        "roots/wp-config": "1.0.0",
+        "spindogs/wp-platform": "^2.0",
+		"advanced-custom-fields/advanced-custom-fields-pro": "^5.7",
+        "wpackagist-plugin/timber-library": "^1.8"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.0.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "extra": {
+        "installer-paths": {
+            "web/app/mu-plugins/{$name}/": [
+                "type:wordpress-muplugin",
+                "wpackagist-plugin/timber-library"
+            ],
+            "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
+            "web/app/themes/{$name}/": ["type:wordpress-theme"]
+        },
+        "wordpress-install-dir": "web/wp"
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"copy('.env.example', '.env');\""
+        ],
+        "test": [
+            "phpcs"
+        ]
+    }
+}
