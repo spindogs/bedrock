@@ -4,7 +4,7 @@ Platform\Setup::setupWordpress();
 
 //setup timber
 Timber\Timber::$autoescape = true;
-Timber\Timber::$cache = true;
+Timber\Timber::$cache = false;
 
 //setup post types
 App\PostType\Example::setup();
