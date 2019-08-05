@@ -1,17 +1,16 @@
-<!doctype html>
-<html lang="en">
-
-    <head>
-        <meta charset="utf-8">
-        <title>{{ site.name }}</title>
-        {{ function('wp_head') }}
-    </head>
+{% include 'layouts/header.twig' %}
 
     <body>
         {% block content %}
-        {% endblock %}
 
-        {{ function('wp_footer') }}
+        {% endblock %}
     </body>
 
-</html>
+
+{% include 'layouts/footer.twig' %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{{ function('wp_footer') }}

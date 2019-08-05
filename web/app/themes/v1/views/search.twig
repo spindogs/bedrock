@@ -2,8 +2,7 @@
 
 {% block content %}
 
-    <h1>{{ post.title }}</h1>
-    {{ function('wp_kses_post', post.content)|raw }}
+    <h1>Search</h1>
 
     {% if posts %}
     <ul>
