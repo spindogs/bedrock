@@ -136,7 +136,7 @@ class CorePages {
 
         $page_ids = self::getCorePosts();
 
-        if (isset($page_ids) && !empty($page_ids)) {
+        if (isset($page_ids) && count($page_ids) > 0) {
             if (isset($post) && isset($post->ID) && in_array($post->ID, $page_ids)) {
                 ?>
                 <script type="text/javascript">
