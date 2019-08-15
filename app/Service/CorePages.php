@@ -3,9 +3,9 @@ namespace App\Service;
 
 /*
 The class works one of two ways
-•	At the top of the class you can chose with the $admin_core_posts variable whether the core pages are controlled via the CMS admin panel or via the individual class file
-o	The Multi Select Dropdown in located in Settings > Reading at bottom of the form
-•	If the core pages are managed via the Class file – Homepage and Blog page are automatically added to the Core Pages, any additional pages have to be added in the file!
+•   At the top of the class you can chose with the $admin_core_posts variable whether the core pages are controlled via the CMS admin panel or via the individual class file
+o   The Multi Select Dropdown in located in Settings > Reading at bottom of the form
+•   If the core pages are managed via the Class file – Homepage and Blog page are automatically added to the Core Pages, any additional pages have to be added in the file!
 
 If you want to make any custom post types or posts which aren’t pages ‘Core’ then you will have to use the manual route until I add a mechanism for post types that aren’t page!
 */
@@ -136,14 +136,16 @@ class CorePages {
 
         $page_ids = self::getCorePosts();
 
-        if (isset($post) && isset($post->ID) && in_array($post->ID, $page_ids)){
-            ?>
-            <script type="text/javascript">
-                jQuery( document ).ready( function( $ ) {
-                    $( '#delete-action' ).remove();
-                } );
-            </script>
-            <?php
+        if (isset($page_ids) && count($page_ids) > 0) {
+            if (isset($post) && isset($post->ID) && in_array($post->ID, $page_ids)) {
+                ?>
+                <script type="text/javascript">
+                    jQuery(document).ready(function ($) {
+                        $('#delete-action').remove();
+                    });
+                </script>
+                <?php
+            }
         }
 
     }
