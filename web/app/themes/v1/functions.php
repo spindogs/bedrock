@@ -51,7 +51,7 @@ add_filter('timber/context', function($context) {
 
 //Used for Google Map integration for Advanced Custom Fields
 // function my_acf_init() {
-//     acf_update_setting('google_api_key', 'AIzaSyBrpjK-qXwmcXzicRJ2l3wKeRPryLBXDgk');
+//     acf_update_setting('google_api_key', '');
 // }
 
 // add_action('acf/init', 'my_acf_init');
