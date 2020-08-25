@@ -1,0 +1,28 @@
+<div class="wrap">
+    <h1>Theme Footer Settings</h1>
+
+    <form method="post" action="" novalidate="novalidate">
+        <table class="form-table">
+
+            <tbody><tr>
+                <th scope="row"><label for="closing_head_content">Ending Body Content</label></th>
+                <td>
+                    <textarea id="closing_head_content" name="closing_head_content" class="regular-text" placeholder="Message">{{ closing_body_content }}</textarea><br>
+                    <p class="description" id="tagline-description">Code that appears before closing body tag.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row"><label for="opening_body_content">HTML Content</label></th>
+                <td>
+                    <textarea id="opening_body_content" name="opening_body_content" class="regular-text" placeholder="Message">{{ closing_html_content }}</textarea><br>
+                    <p class="description" id="tagline-description">Code that appears before the closing html tag.</p>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p></form>
+
+</div>

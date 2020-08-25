@@ -17,11 +17,12 @@ App\Taxonomy\ExampleTaxonomy::setup();
 App\Widget\ExampleWidget::setup();
 
 //setup services
-// App\Service\Admin::setup();
+App\Service\Admin::setup();
 App\Service\Menus::setup();
 App\Service\Search::setup();
 App\Service\Comments::setup();
 App\Service\SiteOptions::setup();
+App\Service\SEOSettings::setup();
 
 //override paging
 Platform\Paging::setup();
