@@ -22,6 +22,7 @@ App\Service\Menus::setup();
 App\Service\Search::setup();
 App\Service\Comments::setup();
 App\Service\SiteOptions::setup();
+App\Service\SEOSettings::setup();
 
 //override paging
 Platform\Paging::setup();
