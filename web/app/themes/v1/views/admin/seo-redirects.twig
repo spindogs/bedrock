@@ -1,0 +1,321 @@
+<style>
+    .form_filter {
+        padding-bottom: 20px;
+    }
+    textarea {
+        width: 100%;
+    }
+
+    .__char_count {
+        padding: 20px;
+    }
+
+    .__good { color: green; }
+    .__bad {color: red;}
+
+    .full_width {width:100%;float: left;}
+    .half_width {width:47%;float: left; padding-left: 15px;}
+
+
+    hr {
+        margin: 5px;
+        width: 100%;
+    }
+
+    .border_left {
+        border-left: 1px solid #ddd;
+    }
+
+    .label_wrap {
+        display: none;
+    }
+
+    .topcorner{
+        position:fixed;
+        top:50px;
+        right:0;
+        width: 110px;
+        height: auto;
+        font-size: 10px;
+    }
+
+    .scrollButton {
+        background-color: #f7f7f7;
+        color: #555;
+        border-color: #999;
+        -webkit-box-shadow: inset 0 2px 5px -3px rgba(0,0,0,.5);
+        box-shadow: inset 0 2px 5px -3px rgba(0,0,0,.5);
+        -webkit-transform: translateY(1px);
+        -ms-transform: translateY(1px);
+        transform: translateY(1px);
+        cursor: pointer;
+        border-width: 1px;
+        border-style: solid;
+        padding: 12px;
+    }
+
+    .sidebar {
+        background-color: #f7f7f7;
+        color: #555;
+        border-color: #999;
+        -webkit-box-shadow: inset 0 2px 5px -3px rgba(0,0,0,.5);
+        box-shadow: inset 0 2px 5px -3px rgba(0,0,0,.5);
+        -webkit-transform: translateY(1px);
+        -ms-transform: translateY(1px);
+        transform: translateY(1px);
+        cursor: pointer;
+        border-width: 1px;
+        border-style: solid;
+        padding: 5px;
+    }
+
+    .js .postbox .handlediv .toggle-indicator:before {
+        margin-top: 4px;
+        width: 20px;
+        border-radius: 50%;
+        text-indent: -1px;
+    }
+
+    .toggle-indicator:before, .js .postbox.closed .handlediv .toggle-indicator:before, .js .toggle-indicator:before {
+        content: "\f140";
+    }
+
+    .toggle-indicator:before {
+        content: "\f142";
+        display: inline-block;
+        font: 400 20px/1 dashicons;
+        speak: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-decoration: none!important;
+    }
+
+    .toggle-indicator:before {
+        content: "\f142";
+        display: inline-block;
+        font: 400 20px/1 dashicons;
+        speak: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-decoration: none!important;
+    }
+
+    .toggle-indicator:before {
+        margin-top: 4px;
+        width: 20px;
+        border-radius: 50%;
+        text-indent: -1px;
+    }
+
+    .accordion-section-title:after, .handlediv, .item-edit, .postbox .handlediv.button-link, .toggle-indicator {
+        color: #72777c;
+    }
+
+
+
+
+    .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+        border: 1px solid !important;
+        border-color: #d02c21 #ba281e #ba281e !important;
+        background: #e14d43!important;
+        font-weight: normal;
+        color: #ffffff;
+    }
+
+    *, *:before, *:after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+    main {
+        min-width: 320px;
+        max-width: 800px;
+        padding: 50px;
+        margin: 0 auto;
+        background: #fff;
+    }
+
+    section {
+        display: none;
+        padding: 20px 0 0;
+        border-top: 1px solid #ddd;
+    }
+
+    label {
+        display: inline-block;
+        margin: 0 0 -1px;
+        padding: 15px 25px;
+        font-weight: 600;
+        text-align: center;
+        color: #bbb;
+        border: 1px solid transparent;
+    }
+
+    label:before {
+        font-family: fontawesome;
+        font-weight: normal;
+        margin-right: 10px;
+    }
+
+    label:hover {
+        color: #888;
+        cursor: pointer;
+    }
+
+    input:checked + label {
+        color: #555;
+        border: 1px solid #ddd;
+        border-top: 2px solid #d02c21;
+        border-bottom: 1px solid #fff;
+    }
+
+    #tab1:checked ~ #content1,
+    #tab2:checked ~ #content2,
+    #tab3:checked ~ #content3,
+    #tab4:checked ~ #content4,
+    #tab5:checked ~ #content5 {
+        display: block;
+    }
+
+    @media screen and (max-width: 650px) {
+        label {
+            font-size: 0;
+        }
+        label:before {
+            margin: 0;
+            font-size: 18px;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        label {
+            padding: 15px;
+        }
+    }
+
+    .update-hide {
+        display: none;
+        height: 150px;
+    }
+
+    .divOverlay {
+        display: none;
+        background-color:green;
+        text-align:center;
+        position:absolute;
+        z-index:10000;
+        opacity:0.8;
+        font-size: 18px;
+        padding: 20px;
+        color: white;
+    }
+    .updatedRow {
+        display: none;
+        background-color: green;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 10px 10px 0 0;
+    }
+</style>
+<div class="wrap">
+    <h1>301 Redirects</h1>
+
+    <div class="form_filter half_width">
+        <p>Export</p>
+        <a class="button button-primary" href="{{ function('admin_url', 'admin.php?page=sd-theme-seo') }}&amp;sd_redirect_export=1">Export</a>
+    </div>
+
+    <div class="form_filter half_width">
+        {{ import_form.display }}
+    </div>
+
+    <hr>
+
+    <form method="post" id="301_redirects_form" action="">
+
+        <table class="widefat">
+            <thead>
+            <tr>
+                <th colspan="2">Request</th>
+                <th colspan="1">Destination</th>
+                <th colspan="1">Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="2"><small>example: {{ function('get_option', 'home') }}/about/</small></td>
+                <td colspan="1"><small>example: {{ function('get_option', 'home') }}/about-new/</small></td>
+                <td colspan="1"><small>301 or 302</small></td>
+            </tr>
+
+            {% if redirects %}
+
+                {% for redirect in redirects %}
+                <tr>
+                    <td>
+                        <input type="text" name="301_redirects[request][]" value="{{ redirect.request }}" style="width:99%" />
+                    </td>
+                    <td>&raquo;</td>
+                    <td>
+                        <input type="text" name="301_redirects[destination][]" value="{{ redirect.destination }}" style="width:99%;" />
+                    </td>
+                    <td>
+                        <select id="redirect_type" name="301_redirects[type][]" >
+                            {% for redirect_type in redirect_types %}
+                                <option {% if redirect.type == redirect_type %} selected {% endif %} value="{{ redirect_type }}">{{ redirect_type }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <span class="wps301-delete"></span>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+            <tr>
+                <td>
+                    <input type="text" name="301_redirects[request][]" value="" style="width:99%;" />
+                </td>
+                <td style="width:2%;">&raquo;</td>
+                <td>
+                    <input type="text" name="301_redirects[destination][]" value="" style="width:99%;" />
+                </td>
+                <td>
+                    <select id="redirect_type" name="301_redirects[type][]" >
+                        <option value="301">301</option>
+                        <option value="302">302</option>
+                    </select>
+                </td>
+                <td>
+                    <span class="wps301-delete">Delete</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p class="submit"><input type="submit" name="submit_301" class="button-primary" value="Save Changes" /></p>
+    </form>
+
+
+
+
+</div>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('span.wps301-delete').html('Delete').css({'color':'red','cursor':'pointer'}).click(function(){
+            var confirm_delete = confirm('Delete This Redirect?');
+            if (confirm_delete) {
+                // remove element and submit
+                jQuery(this).parent().parent().remove();
+            }
+        });
+
+        jQuery('.simple_301_redirects .documentation').hide().before('<p><a class="reveal-documentation" href="#">Documentation</a></p>')
+        jQuery('.reveal-documentation').click(function(){
+            jQuery(this).parent().siblings('.documentation').slideToggle();
+            return false;
+        });
+    });
+</script>

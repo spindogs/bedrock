@@ -1,0 +1,614 @@
+<style>
+    .form_filter {
+        padding-bottom: 20px;
+    }
+    textarea {
+        width: 100%;
+    }
+
+    .__char_count {
+        padding: 20px;
+    }
+
+    .__good { color: green; }
+    .__bad {color: red;}
+
+    .full_width {width:100%;float: left;}
+    .half_width {width:47%;float: left; padding-left: 15px;}
+
+
+    hr {
+        margin: 5px;
+        width: 100%;
+    }
+
+    .border_left {
+        border-left: 1px solid #ddd;
+    }
+
+    .label_wrap {
+        display: none;
+    }
+
+    .topcorner{
+        position:fixed;
+        top:50px;
+        right:0;
+        width: 110px;
+        height: auto;
+        font-size: 10px;
+    }
+
+    .scrollButton {
+        background-color: #f7f7f7;
+        color: #555;
+        border-color: #999;
+        -webkit-box-shadow: inset 0 2px 5px -3px rgba(0,0,0,.5);
+        box-shadow: inset 0 2px 5px -3px rgba(0,0,0,.5);
+        -webkit-transform: translateY(1px);
+        -ms-transform: translateY(1px);
+        transform: translateY(1px);
+        cursor: pointer;
+        border-width: 1px;
+        border-style: solid;
+        padding: 12px;
+    }
+
+    .sidebar {
+        background-color: #f7f7f7;
+        color: #555;
+        border-color: #999;
+        -webkit-box-shadow: inset 0 2px 5px -3px rgba(0,0,0,.5);
+        box-shadow: inset 0 2px 5px -3px rgba(0,0,0,.5);
+        -webkit-transform: translateY(1px);
+        -ms-transform: translateY(1px);
+        transform: translateY(1px);
+        cursor: pointer;
+        border-width: 1px;
+        border-style: solid;
+        padding: 5px;
+    }
+
+    .js .postbox .handlediv .toggle-indicator:before {
+        margin-top: 4px;
+        width: 20px;
+        border-radius: 50%;
+        text-indent: -1px;
+    }
+
+    .toggle-indicator:before, .js .postbox.closed .handlediv .toggle-indicator:before, .js .toggle-indicator:before {
+        content: "\f140";
+    }
+
+    .toggle-indicator:before {
+        content: "\f142";
+        display: inline-block;
+        font: 400 20px/1 dashicons;
+        speak: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-decoration: none!important;
+    }
+
+    .toggle-indicator:before {
+        content: "\f142";
+        display: inline-block;
+        font: 400 20px/1 dashicons;
+        speak: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-decoration: none!important;
+    }
+
+    .toggle-indicator:before {
+        margin-top: 4px;
+        width: 20px;
+        border-radius: 50%;
+        text-indent: -1px;
+    }
+
+    .accordion-section-title:after, .handlediv, .item-edit, .postbox .handlediv.button-link, .toggle-indicator {
+        color: #72777c;
+    }
+
+
+
+
+    .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+        border: 1px solid !important;
+        border-color: #d02c21 #ba281e #ba281e !important;
+        background: #e14d43!important;
+        font-weight: normal;
+        color: #ffffff;
+    }
+
+    *, *:before, *:after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+    main {
+        min-width: 320px;
+        max-width: 800px;
+        padding: 50px;
+        margin: 0 auto;
+        background: #fff;
+    }
+
+    section {
+        display: none;
+        padding: 20px 0 0;
+        border-top: 1px solid #ddd;
+    }
+
+    label {
+        display: inline-block;
+        margin: 0 0 -1px;
+        padding: 15px 25px;
+        font-weight: 600;
+        text-align: center;
+        color: #bbb;
+        border: 1px solid transparent;
+    }
+
+    label:before {
+        font-family: fontawesome;
+        font-weight: normal;
+        margin-right: 10px;
+    }
+
+    label:hover {
+        color: #888;
+        cursor: pointer;
+    }
+
+    input:checked + label {
+        color: #555;
+        border: 1px solid #ddd;
+        border-top: 2px solid #d02c21;
+        border-bottom: 1px solid #fff;
+    }
+
+    #tab1:checked ~ #content1,
+    #tab2:checked ~ #content2,
+    #tab3:checked ~ #content3,
+    #tab4:checked ~ #content4,
+    #tab5:checked ~ #content5 {
+        display: block;
+    }
+
+    @media screen and (max-width: 650px) {
+        label {
+            font-size: 0;
+        }
+        label:before {
+            margin: 0;
+            font-size: 18px;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        label {
+            padding: 15px;
+        }
+    }
+
+    .update-hide {
+        display: none;
+        height: 150px;
+    }
+
+    .divOverlay {
+        display: none;
+        background-color:green;
+        text-align:center;
+        position:absolute;
+        z-index:10000;
+        opacity:0.8;
+        font-size: 18px;
+        padding: 20px;
+        color: white;
+    }
+    .updatedRow {
+        display: none;
+        background-color: green;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 10px 10px 0 0;
+    }
+</style>
+<div class="wrap" id="wpwrap">
+
+    <h2></h2>
+
+    <p></p>
+
+    <hr>
+
+    <input id="tab1" type="radio" name="tabs" checked="" style="display:none">
+    <label for="tab1" class="">SEO Post Types</label>
+
+    <input id="tab2" type="radio" name="tabs" style="display:none">
+    <label for="tab2" class="">SEO Categories</label>
+
+    <input id="tab3" type="radio" name="tabs" style="display:none">
+    <label for="tab3">Export/Import</label>
+
+    <section id="content1">
+        <h2>SEO </h2>
+
+        <div id="poststuff">
+            {% for key, type in post_types %}
+            <div id="{{ key }}-group" class="postbox acf-postbox  open">
+
+                <button type="button" class="handlediv" aria-expanded="false">
+                    <span class="screen-reader-text">Toggle panel: {{ type.post_type.label }}</span>
+                    <span class="toggle-indicator" aria-hidden="true"></span>
+                </button>
+
+                <h2 class=""><span>{{ type.post_type.label }}</span></h2>
+                <div class="inside -top">
+
+                    <table class="acf-table">
+
+                        <thead>
+                        <tr>
+                            <th class=""></th>
+                            <th class="acf-th" style="width: 15%;">Title</th>
+                            <th class="acf-th" style="width: 25%;">URL</th>
+                            <th class="acf-th" style="width: 25%;">Browser Title</th>
+                            <th class="acf-th" style="width: 25%;">Meta Description</th>
+                            <th class="acf-th" style="width: 10%;">OG Image</th>
+                            <th class="acf-row-handle"></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% if type.posts %}
+                        {% for post in type.posts %}
+                        <tr class="acf-row row" data-id="{{ post.id }}">
+
+                            <td class="acf-row-handle order info-td">
+                                <span>{{ post.id }}</span>
+                                <div class="updatedRow dashicons-before dashicons-yes" style="color:white;"></div>
+                            </td>
+
+                            <td class="info-td">
+                                <span>{{ post.post_title }}</span>
+                            </td>
+
+                            <td class="info-td">
+										<span>
+										{{ function('get_site_url') }}
+										<textarea data-id="144" id="clean-{{ post.id }} uploadClean" class="uploadClean" name="clean-{{ post.id }}" rows="2">{{ post.post_name }}</textarea>
+										<a target="_blank" href="{{ function('get_permalink', post.id)}}">View</a>
+										</span>
+                            </td>
+
+                            <td class="info-td">
+                                <textarea data-id="{{ post.id }}" id="meta-title-{{ post.id }} uploadTitle" class="uploadTitle" name="meta-title-{{ post.id }}" rows="2">{{ post.seo_title }}</textarea>
+                            </td>
+
+                            <td class="info-td">
+                                <textarea data-id="{{ post.id }}" id="meta-desc-{{ post.id }} uploadDesc" class="uploadDesc" name="meta-desc-{{ post.id }}" rows="4">{{ post.seo_desc }}</textarea>
+                            </td>
+
+                            <td class="info-td">
+                                <div class="image-preview-wrapper">
+                                    <img id="image-preview-{{ post.id }}" src="{{ function('wp_get_attachment_url', post.seo_image_id) }}" height="100">
+                                </div>
+                                <input data-id="{{ post.id }}" id="upload_image_button" type="button" class="button UploadImage" value="Upload image">
+                                <input data-id="{{ post.id }}" type="hidden" name="image_attachment_id" class="uploadImg" id="image_attachment_id-{{ post.id }}" value="">
+                            </td>
+
+                            <td class="info-td">
+                                <input type="submit" data-id="{{ post.id }}" name="submit_image_selector" class="button button-primary ajaxsave" value="Update">
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+
+                        </tbody>
+                    </table>
+
+                    <div class="divOverlay" style=""><p>Row Updated</p></div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>	</section>
+
+    <section id="content2">
+        <h2>SEO </h2>
+
+        <div id="poststuff">
+            {% for key, category in categories %}
+            <div id="{{ category.taxonomy.name }}-group" class="postbox acf-postbox ">
+
+                <button type="button" class="handlediv" aria-expanded="true">
+                    <span class="screen-reader-text">Toggle panel: {{ category.taxonomy.label }}</span>
+                    <span class="toggle-indicator" aria-hidden="true"></span>
+                </button>
+
+                <h2 class=""><span>{{ category.taxonomy.label }}</span></h2>
+                <div class="inside -top">
+
+                    <table class="acf-table">
+
+                        {% if category.terms %}
+                        <thead>
+                        <tr>
+                            <th class=""></th>
+                            <th class="acf-th" style="width: 15%;">Title</th>
+                            <th class="acf-th" style="width: 25%;">URL</th>
+                            <th class="acf-th" style="width: 25%;">Browser Title</th>
+                            <th class="acf-th" style="width: 25%;">Meta Description</th>
+                            <th class="acf-th" style="width: 10%;">OG Image</th>
+                            <th class="acf-row-handle"></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+
+                        {% for term in category.terms %}
+                        <tr class="acf-row row" data-id="1">
+
+                            <td class="acf-row-handle order info-td">
+                                <span>{{ term.id }}</span>
+                            </td>
+
+                            <td class="info-td">
+                                <span>{{ term.name }}</span>
+                            </td>
+
+                            <td class="info-td">
+										<span>
+										{{ function('get_site_url') }}
+										<textarea data-id="{{ term.id }}" id="clean-{{ term.id }} uploadSlug" class="uploadSlug" name="clean-{{ term.id }}" rows="2">{{ term.slug }}</textarea>
+										<a target="_blank" href="">View</a>
+										</span>
+                            </td>
+
+                            <td class="info-td">
+                                <textarea data-id="{{ term.id }}" id="meta-title-{{ term.id }} uploadCatTitle" class="uploadCatTitle" name="meta-title-{{ term.id }}" rows="2">{{ term.seo_title }}</textarea>
+                            </td>
+
+                            <td class="info-td">
+                                <textarea data-id="{{ term.id }}" id="meta-desc-{{ term.id }} uploadCatDesc" class="uploadCatDesc" name="meta-desc-{{ term.id }}" rows="4">{{ term.seo_desc }}</textarea>
+                            </td>
+
+                            <td class="info-td">
+                                <div class="image-preview-wrapper">
+                                    <img id="image-preview-{{ term.id }}" src="{{ function('wp_get_attachment_url', term.seo_image_id) }}" height="100">
+                                </div>
+                                <input data-id="{{ term.id }}" id="upload_image_button" type="button" class="button UploadCatImage" value="Upload image">
+                                <input data-id="{{ term.id }}" type="hidden" name="image_attachment_id" class="uploadImg" id="image_attachment_id-{{ term.id }}" value="">
+                            </td>
+
+                            <td class="info-td">
+                                <input type="submit" data-id="{{ term.id }}" name="submit_image_selector" class="button button-primary categorySave" value="Update">
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+
+                        {% else %}
+                            <p>No Categories</p>
+                        {% endif %}
+                    </table>
+
+                    <div class="divOverlay" style=""><p>Row Updated</p></div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>	</section>
+
+    <section id="content3">
+        <div class="form_filter half_width">
+            <p>Export</p>
+            <a class="button button-primary" href="{{ function('admin_url', 'admin.php?page=sd-theme-seo') }}&amp;sd_seo_export=1">Export</a>
+        </div>
+
+        <div class="form_filter half_width">
+            {{ import_form.display }}
+        </div>
+
+        <hr>
+
+    </section>
+
+
+</div>
+
+
+<script type="text/javascript">
+    jQuery(document).on('click', '.ajaxsave', function(event){
+        var that = jQuery(this);
+        var id = that.data('id');
+        var uploadTitle = jQuery('.uploadTitle[data-id="' + id + '"]').val();
+        var uploadDesc = jQuery('.uploadDesc[data-id="' + id + '"]').val();
+        var uploadImg = jQuery('.uploadImg[data-id="' + id + '"]').val();
+        var uploadClean = jQuery('.uploadClean[data-id="' + id + '"]').val();
+
+        jQuery.ajax({
+            type: 'GET',
+            url: "{{ ajax_url }}",
+            //url: ajaxurl,
+            dataType : "JSON",
+            data : {
+                action: "updateSEO",
+                post_id: id,
+                title: uploadTitle,
+                desc: uploadDesc,
+                img: uploadImg,
+                clean: uploadClean
+            },
+            //cache: false,
+            success: function(data){
+
+
+
+                jQuery('#wpwrap').append('<div class="notice notice-success is-dismissible"><p>Done</p></div>');
+
+                var divlabel = that.closest('tr').find('div.updatedRow');
+
+                divlabel.show();
+
+                // var $divOverlay = jQuery('.divOverlay');
+                // var bottomWidth = that.closest('tr').css('width');
+                // var bottomHeight = that.closest('tr').css('height');
+                // var rowPos = that.closest('tr').position();
+                // bottomTop = rowPos.top;
+                // bottomLeft = rowPos.left;
+                // $divOverlay.css({
+                //     position: 'absolute',
+                //     top: bottomTop,
+                //     right: '0px',
+                //     width: '100%',
+                //     height: bottomHeight
+                // });
+                //
+                // $divOverlay.delay(1000).slideDown('fast');
+                //
+                // setTimeout(function() {
+                //     var $divOverlay = $('.divOverlay');
+                //     $divOverlay.slideUp();
+                // }, 2000);
+
+            }
+        });
+    });
+    jQuery(document).on('click', '.categorySave', function(event){
+        var that = $(this);
+        var id = that.data('id');
+        var uploadCatTitle = jQuery('.uploadCatTitle[data-id="' + id + '"]').val();
+        var uploadCatDesc = jQuery('.uploadCatDesc[data-id="' + id + '"]').val();
+        var UploadCatImage = jQuery('.UploadCatImage[data-id="' + id + '"]').val();
+        var uploadSlug = jQuery('.uploadSlug[data-id="' + id + '"]').val();
+
+        jQuery.ajax({
+            type: 'GET',
+            url: "{{ ajax_url }}",
+            //url: ajaxurl,
+            dataType : "JSON",
+            data : {
+                action: "updateCategorySEO",
+                post_id: id,
+                title: uploadCatTitle,
+                desc: uploadCatDesc,
+                img: UploadCatImage,
+                clean: uploadSlug
+            },
+            //cache: false,
+            success: function(data){
+
+                var $divOverlay = jQuery('.divOverlay');
+                var bottomWidth = that.closest('tr').css('width');
+                var bottomHeight = that.closest('tr').css('height');
+                var rowPos = that.closest('tr').position();
+                bottomTop = rowPos.top;
+                bottomLeft = rowPos.left;
+                $divOverlay.css({
+                    position: 'absolute',
+                    top: bottomTop,
+                    right: '0px',
+                    width: '100%',
+                    height: bottomHeight
+                });
+
+                $divOverlay.delay(1000).slideDown('fast');
+
+                setTimeout(function() {
+                    var $divOverlay = $('.divOverlay');
+                    $divOverlay.slideUp();
+                }, 2000);
+
+            }
+        });
+    });
+
+    // jQuery(document).on('ready', function($){
+    //     postboxes.save_state = function(){
+    //         return;
+    //     };
+    //     postboxes.save_order = function(){
+    //         return;
+    //     };
+    //     postboxes.add_postbox_toggles();
+    // });
+
+    jQuery( document ).ready( function( $ ) {
+
+        jQuery('.UploadImage').on('click', function( event ){
+            event.preventDefault();
+
+            var that = $(this);
+            var id = that.data('id');
+            var post_id = id;
+
+            var file_frame;
+            var wp_media_post_id = wp.media.model.settings.post.id;
+
+            if ( file_frame ) {
+                file_frame.uploader.uploader.param( 'post_id', post_id );
+                file_frame.open();
+                return;
+            } else {
+                wp.media.model.settings.post.id = id;
+            }
+
+            file_frame = wp.media.frames.file_frame = wp.media({
+                title: 'Select a image to upload',
+                button: {
+                    text: 'Use this image',
+                },
+                multiple: false,
+            });
+
+            file_frame.on( 'select', function() {
+                attachment = file_frame.state().get('selection').first().toJSON();
+                $( '#image-preview-' + id ).attr( 'src', attachment.url ).css( 'width', 'auto' );
+                $( '#image_attachment_id-' + id ).val( attachment.id );
+                wp.media.model.settings.post.id = wp_media_post_id;
+            });
+
+            file_frame.open();
+
+        });
+
+        jQuery( 'a.add_media' ).on( 'click', function() {
+            wp.media.model.settings.post.id = wp_media_post_id;
+        });
+
+    });
+
+    //todo: This should be enqued
+    jQuery(document).ready(function(){
+        jQuery('span.wps301-delete').html('Delete').css({'color':'red','cursor':'pointer'}).click(function(){
+            var confirm_delete = confirm('Delete This Redirect?');
+            if (confirm_delete) {
+
+                // remove element and submit
+                jQuery(this).parent().parent().remove();
+                //jQuery('#simple_301_redirects_form').submit();
+
+            }
+        });
+
+        jQuery('.simple_301_redirects .documentation').hide().before('<p><a class="reveal-documentation" href="#">Documentation</a></p>')
+        jQuery('.reveal-documentation').click(function(){
+            jQuery(this).parent().siblings('.documentation').slideToggle();
+            return false;
+        });
+    });
+</script>
+
+{#<script type="text/javascript" src="/wp/wp-admin/js/postbox.js?ver=4.9.4"></script>#}
