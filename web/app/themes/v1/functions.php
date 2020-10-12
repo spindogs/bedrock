@@ -1,4 +1,12 @@
 <?php
+// Escape if Timber isn't loaded yet.
+// Can happen on new-installs prior to DB setup. MU-plugins haven't yet been added to the DB. 
+if ( ! class_exists( 'Timber' ) ) {
+    add_action( 'admin_notices', function() {
+        echo '<div class="error"><p>Timber not activated.</p></div>';
+    } );
+    return;
+}
 //setup platform
 Platform\Setup::setupWordpress();
 
@@ -26,9 +34,6 @@ App\Service\SEOSettings::setup();
 
 //override paging
 Platform\Paging::setup();
-
-//options page
-acf_add_options_page();
 
 //timber context
 add_filter('timber/context', function($context) {

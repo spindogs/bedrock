@@ -1,0 +1,110 @@
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+trigger: 
+  batch: true
+  branches:
+    include:
+    - develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  phpVersion: 7.4
+  COMPOSER_CACHE_DIR: $(Pipeline.Workspace)/.composer
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+
+steps:
+- script: |
+    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+    php -version
+  displayName: 'Use PHP version $(phpVersion)'
+
+- task: gitversion/setup@0
+  inputs:
+    versionSpec: '5.x'
+  displayName: 'Setup gitversion'
+
+- task: gitversion/execute@0
+  displayName: 'Execute gitversion'
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '^8.0.0'
+  displayName: 'Install Node v8'
+
+- task: Cache@2
+  inputs:
+    key: 'npm | "$(Agent.OS)" | package-lock.json'
+    restoreKeys: |
+       npm | "$(Agent.OS)"
+    path: $(npm_config_cache)
+  displayName: 'Load NPM Cache'
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+  displayName: 'Install System Dependencies (npm)'
+
+- task: Cache@2
+  inputs:
+    key: 'composer | "$(Agent.OS)" | composer.lock'
+    restoreKeys: |
+      composer | "$(Agent.OS)"
+      composer
+    path: $(COMPOSER_CACHE_DIR)
+  displayName: 'Load Composer Cache'
+
+- task: gulp@0
+  inputs:
+    gulpFile: 'gulpfile.js'
+    targets: 'webpack'
+    gulpjs: 'node_modules/gulp/bin/gulp.js'
+    enableCodeCoverage: false
+  displayName: 'Webpack SASS and JS'
+
+- script: composer install --no-interaction --prefer-dist
+  env:
+    ACF_PRO_KEY: $(ACF_PRO_KEY)
+  displayName: 'Install Project Dependencies (composer)'
+
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    Contents: |
+      **/*
+      !.git/**/*
+      !.idea/**/*
+      !.editorconfig
+      !.env.example
+      !.git*
+      !.styleci.yml
+      !azure-pipelines*.*
+      !package-lock.json
+      !package.json
+      !phpunit.xml
+      !README.md
+      !schema.png
+      !webpack.mix.js
+      !yarn.lock
+      !node_modules/**/*
+      !storage/**/*
+      !tests/**/*
+      !**/.gitignore
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
