@@ -1,20 +1,25 @@
-# Make sure the necessary directories are in place
+# Make the required directories
 mkdir -p ~/httpdocs/releases/$(Build.BuildNumber)
 mkdir -p ~/httpdocs/uploads
+mkdir -p ~/httpdocs/plugins
+# Ensure the server follows Symlinks
 echo "Options +FollowSymLinks -SymLinksIfOwnerMatch" > ~/httpdocs/.htaccess
-
-# unzip the new build
+# Unzip the build
 unzip -o ~/httpdocs/$(Build.BuildId).zip -d httpdocs/releases/$(Build.BuildNumber)
 
-# remove the uncessary files
+# Copy any uploads and plugins from the repo into the outside directories
+rsync -au ~/httpdocs/releases/$(Build.BuildNumber)/web/app/plugins/ ~/httpdocs/plugins/
+rsync -au ~/httpdocs/releases/$(Build.BuildNumber)/web/app/uploads/ ~/httpdocs/uploads/
+
+# Remove the build artifact and unnecssary folders
 rm -f ~/httpdocs/$(Build.BuildId).zip
 rm -rf ~/httpdocs/releases/$(Build.BuildNumber)/web/app/uploads
+rm -rf ~/httpdocs/releases/$(Build.BuildNumber)/web/app/plugins
 
-# link the necessary files to their place within the build
+# Link the outside files to the deployed build
 ln -nfs ~/httpdocs/uploads ~/httpdocs/releases/$(Build.BuildNumber)/web/app/uploads
+ln -nfs ~/httpdocs/plugins ~/httpdocs/releases/$(Build.BuildNumber)/web/app/plugins
 ln -nfs ~/httpdocs/.env ~/httpdocs/releases/$(Build.BuildNumber)/.env
-
-# link the build to `current`
 ln -nfs ~/httpdocs/releases/$(Build.BuildNumber) ~/httpdocs/current
 
-# configure the server to serve from /var/www/vhost/SITENAME/httpdocs/current/web/
+# Configure the websever to serve from `/httpdocs/current/web/`

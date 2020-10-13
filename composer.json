@@ -32,10 +32,10 @@
         "oscarotero/env": "^2.1",
         "roots/wordpress": "^5.5.1",
         "roots/wp-config": "1.0.0",
-        "roots/bedrock-autoloader": "^1.0",
         "roots/wp-password-bcrypt": "1.0.0",
         "spindogs/wp-platform": "^2.0",
         "wpackagist-plugin/timber-library": "^1.18",
+        "wpackagist-plugin/classic-editor": "^1.6",
         "advanced-custom-fields/advanced-custom-fields-pro": "^5.9.1"
     },
     "require-dev": {
@@ -51,7 +51,8 @@
         "installer-paths": {
             "web/app/mu-plugins/{$name}/": [
                 "type:wordpress-muplugin",
-                "wpackagist-plugin/timber-library"
+                "wpackagist-plugin/timber-library",
+                "wpackagist-plugin/classic-editor"
             ],
             "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
             "web/app/themes/{$name}/": ["type:wordpress-theme"]
