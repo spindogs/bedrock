@@ -50,7 +50,13 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-  displayName: 'Install System Dependencies (npm)'
+  displayName: 'Install NPM Dependencies'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'run dev'
+  displayName: 'Webpack SASS and JS'
 
 - task: Cache@2
   inputs:
@@ -61,18 +67,11 @@ steps:
     path: $(COMPOSER_CACHE_DIR)
   displayName: 'Load Composer Cache'
 
-- task: gulp@0
-  inputs:
-    gulpFile: 'gulpfile.js'
-    targets: 'webpack'
-    gulpjs: 'node_modules/gulp/bin/gulp.js'
-    enableCodeCoverage: false
-  displayName: 'Webpack SASS and JS'
 
 - script: composer install --no-interaction --prefer-dist
   env:
     ACF_PRO_KEY: $(ACF_PRO_KEY)
-  displayName: 'Install Project Dependencies (composer)'
+  displayName: 'Install Composer Dependencies'
 
 
 - task: CopyFiles@2
