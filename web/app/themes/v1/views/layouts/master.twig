@@ -1,16 +1,18 @@
-{% include 'layouts/header.twig' %}
+<!doctype html>
+<html {{fn('language_attributes') }}>
+    {% include 'layouts/head.twig' %}
+    <body class="{{ body_class|e('html_attr') }}">
+        {% include 'layouts/header.twig' %}
 
-    <body>
         {% block content %}
 
         {% endblock %}
+        
+        {% include 'layouts/footer.twig' %}
+
+        {{ function('wp_footer') }}
+        {% block scripts %}
+
+        {% endblock %}
     </body>
-
-
-{% include 'layouts/footer.twig' %}
-
-{% block scripts %}
-
-{% endblock %}
-
-{{ function('wp_footer') }}
+</html>

@@ -114,6 +114,14 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
     $_SERVER['HTTPS'] = 'on';
 }
 
+/**
+ * Sentry
+ */
+Config::define('WP_SENTRY_PHP_DSN', env('WP_SENTRY_PHP_DSN'));
+Config::define('WP_SENTRY_BROWSER_DSN', env('WP_SENTRY_BROWSER_DSN'));
+Config::define('WP_SENTRY_VERSION', env('WP_SENTRY_VERSION'));
+Config::define('WP_SENTRY_ENV', env('WP_ENV'));
+
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
 if (file_exists($env_config)) {

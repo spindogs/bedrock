@@ -3,7 +3,12 @@
     "type": "project",
     "description": "WordPress boilerplate with modern development tools, easier configuration, and an improved folder structure",
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "pivvenit/acf-pro-installer": true,
+            "composer/installers": true,
+            "roots/wordpress-core-installer": true
+        }
     },
     "repositories": [
         {
@@ -27,7 +32,8 @@
         "wpackagist-plugin/timber-library": "^1.18",
         "wpackagist-plugin/classic-editor": "^1.6",
         "advanced-custom-fields/advanced-custom-fields-pro": "^5.9",
-        "wpackagist-plugin/wordpress-seo": "^16.0"
+        "wpackagist-plugin/wordpress-seo": "^17.0",
+        "wpackagist-plugin/wp-sentry-integration": "^4.10"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2",
@@ -45,7 +51,8 @@
             "web/app/mu-plugins/{$name}/": [
                 "type:wordpress-muplugin",
                 "wpackagist-plugin/timber-library",
-                "wpackagist-plugin/classic-editor"
+                "wpackagist-plugin/classic-editor",
+                "wpackagist-plugin/wp-sentry-integration"
             ],
             "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
             "web/app/themes/{$name}/": ["type:wordpress-theme"]

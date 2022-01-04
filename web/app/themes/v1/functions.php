@@ -1,17 +1,17 @@
 <?php
 // Escape if Timber isn't loaded yet.
 // Can happen on new-installs prior to DB setup. MU-plugins haven't yet been added to the DB. 
-if ( ! class_exists( 'Timber' ) ) {
-    add_action( 'admin_notices', function() {
+if (!class_exists('Timber')) {
+    add_action('admin_notices', function () {
         echo '<div class="error"><p>Timber not activated.</p></div>';
-    } );
+    });
     return;
 }
 //setup platform
 Platform\Setup::setupWordpress();
 
 //setup timber
-Timber\Timber::$autoescape = true;
+Timber\Timber::$autoescape = false;
 Timber\Timber::$cache = false;
 
 //setup post types
@@ -35,10 +35,11 @@ App\Service\SEOSettings::setup();
 //override paging
 Platform\Paging::setup();
 
-//timber context
-add_filter('timber/context', function($context) {
-    $context['options'] = get_fields('option');
+add_theme_support('title-tag');
 
+//timber context
+add_filter('timber/context', function ($context) {
+    $context['options'] = get_fields('option');
 
     $Breadcrumb = new Platform\Breadcrumb();
     $context['breadcrumb'] = $Breadcrumb;
@@ -48,7 +49,7 @@ add_filter('timber/context', function($context) {
 
     foreach ($menus as $menu_key => $menu_value) {
         $menu_object = (isset($menu_locations[$menu_key]) ? wp_get_nav_menu_object($menu_locations[$menu_key]) : null);
-        $context[$menu_key.'_name'] = (isset($menu_object->name) ? $menu_object->name : '');
+        $context[$menu_key . '_name'] = (isset($menu_object->name) ? $menu_object->name : '');
         $context[$menu_key] = new Timber\Menu($menu_key);
     }
 
