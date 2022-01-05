@@ -107,11 +107,16 @@ Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
 
 /**
- * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
- * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
+ * Multisite Settings
  */
-if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
-    $_SERVER['HTTPS'] = 'on';
+Config::define('WP_ALLOW_MULTISITE', env('WP_ALLOW_MULTISITE'));
+if (env('MULTISITE')) {
+    Config::define('MULTISITE', env('MULTISITE'));
+    Config::define('SUBDOMAIN_INSTALL', env('SUBDOMAIN_INSTALL'));
+    Config::define('DOMAIN_CURRENT_SITE', env('DOMAIN_CURRENT_SITE'));
+    Config::define('PATH_CURRENT_SITE', env('PATH_CURRENT_SITE') ?: "/");
+    Config::define('SITE_ID_CURRENT_SITE', env('SITE_ID_CURRENT_SITE') ?: 1);
+    Config::define('BLOG_ID_CURRENT_SITE', env('BLOG_ID_CURRENT_SITE') ?: 1);
 }
 
 /**
@@ -121,6 +126,14 @@ Config::define('WP_SENTRY_PHP_DSN', env('WP_SENTRY_PHP_DSN'));
 Config::define('WP_SENTRY_BROWSER_DSN', env('WP_SENTRY_BROWSER_DSN'));
 Config::define('WP_SENTRY_VERSION', env('WP_SENTRY_VERSION'));
 Config::define('WP_SENTRY_ENV', env('WP_ENV'));
+
+/**
+ * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
+ * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
+ */
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+}
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
